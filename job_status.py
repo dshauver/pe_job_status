@@ -15,26 +15,14 @@ import urllib.parse
 import pathlib
 
 #Set up some defaults.  Using ALL CAPS for variables
-#Specify the Puppet Enterprise Primary server hosting the Orchestrator endpoint
+#Specify the host/port for orchestrator API
 ORCH_HOST = "https://puppet:8143"
-#Specify the Orchestrator endpoint port
 #Specify the jobs endpoint for job details
 JOBS_ENDPOINT = "orchestrator/v1/jobs/"
 #Specify the inventory endpoint for inventory detilas
 INVENTORY_ENDPOINT = "orchestrator/v1/inventory"
 PE_TOKEN = None
 JOB_ID = None
-
-#The following commands are used to access the relevant details for a particular job from the CLI.  
-#Note that the orch inventory endpoint will ONLY list nodes that are currently connected. 
-#curl --insecure --header "X-Authentication: <TOKEN>" "https://puppet:8143/orchestrator/v1/inventory"
-
-#This gives the basic details of a job, in this case #1701
-#curl --insecure --header "X-Authentication: <TOKEN>" "https://puppet:8143/orchestrator/v1/jobs/1701"
-
-#The nodes detail endpoint for a job will list all nodes targeted by the job, regardless of connection status.
-#Compare this with the output from inventory to determine which nodes were not online when the job was launched
-#curl --insecure --header "X-Authentication: <TOKEN>" "https://puppet:8143/orchestrator/v1/jobs/1701/nodes"
 
 #First pass at grabbing node inventory. Note that verify=False is not recommended, but is required for
 #self-signed certs without additional effort
@@ -43,26 +31,30 @@ JOB_ID = None
 with open('token', 'r') as file:
 	PE_TOKEN = file.read().replace('\n', '')
 
-#FIXME Build the URL from variables rather than specify it here.
 #FIXME Need to think about this again - fine for small environments, likely breaks at scale.
 #might work better to just parse results from node_status and report based on specific status
-node_inventory = requests.get("https://puppet:8143/orchestrator/v1/inventory", verify=False,
-  headers={"X-Authentication": PE_TOKEN}
-)
+#inventory_uri = urllib.parse.urljoin(ORCH_HOST, INVENTORY_ENDPOINT)
+#Don't think this will be required ; commenting out for now likely deleting later.
+#node_inventory = requests.get("https://puppet:8143/orchestrator/v1/inventory", verify=False,
+#node_inventory = requests.get(inventory_uri, verify=False,
+#  headers={"X-Authentication": PE_TOKEN}
+#)
 
 #FIXME Need to get job_id from CLI or from user input
-JOB_ID = "1701"
+JOB_ID = "1704"
 
-#FIXME Build the URL from variables rather than specify it here.
-job_status = requests.get("https://puppet:8143/orchestrator/v1/jobs/1701", verify=False,
+jobs_uri = urllib.parse.urljoin(ORCH_HOST, JOBS_ENDPOINT)
+job_uri = urllib.parse.urljoin(jobs_uri, JOB_ID)
+job_status = requests.get(job_uri, verify=False,
   headers={"X-Authentication": PE_TOKEN}
 )
 
-#FIXME Build the URL from variables rather than specify it here.
-node_status = requests.get("https://puppet:8143/orchestrator/v1/jobs/1701/nodes", verify=False,
+nodes_uri = job_uri + "/nodes" 
+node_status = requests.get(nodes_uri, verify=False,
   headers={"X-Authentication": PE_TOKEN}
 )
 
-print (node_inventory.text)
+#Print Statements for Debugging.
+#print (node_inventory.text)
 print (job_status.text)
 print (node_status.text)
