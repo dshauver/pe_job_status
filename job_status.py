@@ -43,6 +43,9 @@ JOB_ID = None
 with open('token', 'r') as file:
 	PE_TOKEN = file.read().replace('\n', '')
 
+#FIXME Build the URL from variables rather than specify it here.
+#FIXME Need to think about this again - fine for small environments, likely breaks at scale.
+#might work better to just parse results from node_status and report based on specific status
 node_inventory = requests.get("https://puppet:8143/orchestrator/v1/inventory", verify=False,
   headers={"X-Authentication": PE_TOKEN}
 )
@@ -56,7 +59,6 @@ job_status = requests.get("https://puppet:8143/orchestrator/v1/jobs/1701", verif
 )
 
 #FIXME Build the URL from variables rather than specify it here.
-# Should be https://PRIMARY_HOST:ORCH_PORT/JOBS_ENDPOINT/JOB_ID/nodes
 node_status = requests.get("https://puppet:8143/orchestrator/v1/jobs/1701/nodes", verify=False,
   headers={"X-Authentication": PE_TOKEN}
 )
