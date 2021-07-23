@@ -29,6 +29,5 @@ For JobID XXXX:
 
 Initial investigation shows that data will be required from these endpoints :
 
-- curl --insecure --header "X-Authentication: <TOKEN>" "https://puppet:8143/orchestrator/v1/inventory"
 - curl --insecure --header "X-Authentication: <TOKEN>" "https://puppet:8143/orchestrator/v1/jobs/1701"
 - curl --insecure --header "X-Authentication: <TOKEN>" "https://puppet:8143/orchestrator/v1/jobs/1701/nodes
