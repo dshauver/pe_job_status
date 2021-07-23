@@ -13,6 +13,7 @@ import time
 import requests
 import urllib.parse
 import pathlib
+import numpy
 
 #Set up some defaults.  Using ALL CAPS for variables
 #Specify the host/port for orchestrator API
@@ -83,6 +84,20 @@ print("Start_time", job_data["created_timestamp"], sep=',')
 print("Start_time", job_data["finished_timestamp"], sep=',')
 print("Duration", job_data["duration"], sep=',')
 
+job_duration = []
+for i in node_data["items"]:
+  job_duration.append(i["duration"])
+
+p90 = numpy.percentile(job_duration, 90)
+p80 = numpy.percentile(job_duration, 80)
+p50 = numpy.percentile(job_duration, 50)
+p10 = numpy.percentile(job_duration, 10)
+
+print ("90th Percentile Job Duration", '%0.0f' % p90, sep=',')
+print ("50th Percentile Job Duration", '%0.0f' % p50, sep=',')
+print ("10th Percentile Job Duration", '%0.0f' % p10, sep=',')
+
 print("Nodename,Start Time,Finish Time,Duration(sec),Status")
 for i in node_data["items"]:
   print(i["name"],i["start_timestamp"],i["finish_timestamp"],i["duration"],i["state"], sep=',')
+
