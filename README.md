@@ -32,6 +32,10 @@ Initial investigation shows that data will be required from these endpoints :
 - curl --insecure --header "X-Authentication: <TOKEN>" "https://puppet:8143/orchestrator/v1/jobs/1701"
 - curl --insecure --header "X-Authentication: <TOKEN>" "https://puppet:8143/orchestrator/v1/jobs/1701/nodes
 
+Sample script execution for Job # 1730:
+
+$ python3 job_status.py 1730
+
 Current version of script returns results similar to this:
 ``
 +------------------------------+----------------------+----------------------+---------------+----------+
