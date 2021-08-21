@@ -48,7 +48,7 @@ The script expects Python3 with the following libraries
 - socket (Future Enhancements)
 - json (Future Enhancements)
 
-It is written to expect a file, called 'token', in the same directory as the script itself.  The script was developed with token with full administrative access.  Using a more limited token is a future effort.
+It is written to expect a file, called `token`, in the same directory as the script itself.  The script was developed with token with full administrative access.  Using a more limited token is a future effort.
 
 Sample script execution for Job # 1730:
 
