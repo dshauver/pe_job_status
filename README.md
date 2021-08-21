@@ -1,4 +1,4 @@
-# job_status
+# job_status.py
 
 ## Specification
 A customer is looking to report on meeting an SLA that 99% of nodes managed by Puppet Enterprise can have action taken against them within 60 minutes.  This essentially means using a task, plan, or agent run to make a change on a set of managed nodes.  The task, plan, or agent run should launch on all connected nodes within 60 minutes.  This effort is to provide a reporting example leveraging Puppet APIs.  Python was chosen as the scripting language for the effort
