@@ -21,7 +21,7 @@ End desired state:
 For JobID XXXX:
 
 - 357 nodes were connected at the time of the job launch, and of those,
-- 300 started running within <SLA> minutes of launching the job.
+- 300 started running within `SLA` minutes of launching the job.
 - 350 nodes completed successfully
 - 7 nodes reported failures
 - All jobs completed in ## minutes 
