@@ -10,7 +10,7 @@ Success Metric:
 
 Need reporting that shows :
 
-- number of nodes connected v not connected @ job start time
+- number of nodes connected v not connected @ job start time (This is not done yet)
 - Job launch time
 - Individual node kickoff times
 - node completion times
