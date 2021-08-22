@@ -13,13 +13,13 @@ import urllib3
 import urllib.parse
 import numpy
 import json
+import csv
 
 #For enhancements to output to files in various formats.
 #import pathlib
 #import socket
 #import tabulate
 
-#FIXME Add input validation and usage message
 
 #Set up some defaults.  Using ALL CAPS for variables
 ORCH_HOST = "https://puppet:8143" #host:port for orchestrator API
@@ -42,11 +42,12 @@ results_dict = {} #dictionary for results FIXME
 job_start_time = None #Datestamp for overall job start time
 node_start_time = None #Datestamp for per-node job start time
 
+#FIXME Complete input validation and usage message
 #Get JOB_ID from first CLI argument
 try:
   sys.argv[1]
 except:
-  sys.exit("Must specify Job ID")
+  sys.exit("Usage: python3 job_setup.py JOBID OUTPUT(optional)")
 else:
   JOB_ID = sys.argv[1]
 
@@ -58,9 +59,8 @@ except:
 else:
   OUTPUT = sys.argv[2]
   
-
 #Supress warnings about insecure requests.  Using self-signed certs in my environment
-#and don't want to see the errors any more
+#and don't want to see the warnings any more
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 #Grab the token from the file "token" in the same directory as the script
@@ -154,15 +154,17 @@ if OUTPUT == "console": #if OUTPUT = console, ONLY print to console
   print (json.dumps(results_dict, indent = 2))
 elif OUTPUT == "all": #if OUTPUT = all, write to file and console
   print (json.dumps(results_dict, indent = 2))
-  #FIXME add writing to JSON, CSV files
-  print ("FIXME ouput to file.csv")
-  print ("FIXME ouput to file.csv")
+  json_out = open(("JOB_" + JOB_ID + ".json"), "w")
+  json_out.write(json.dumps(results_dict, indent = 2))
+  json_out.close()
 elif OUTPUT == "json": #Write JSON to file
-  #FIXME add writing JSON to file
-  print ("FIXME ouput to file.json")
-elif OUTPUT == "csv": #write CSV to file
+  json_out = open(("JOB_" + JOB_ID + ".json"), "w")
+  json_out.write(json.dumps(results_dict, indent = 2))
+  json_out.close()
+#elif OUTPUT == "csv": #write CSV to file
   #FIXME add CSV output to file
-  print ("FIXME ouput to file.csv")
-
-#print (tabulate.tabulate(results, tablefmt="grid")) #Print results to console as grid format table
-#print (tabulate.tabulate(results, tablefmt="grid")) #Print results to console as grid format table
+  #csv_out = open(("JOB_" + JOB_ID + ".csv"), "w")
+  #csv_write = csv.DictWriter(csv_out, results_dict.keys())
+  #csv_write.writeheader()
+  #csv_write.writerow(results_dict)
+  #csv_out.close()
