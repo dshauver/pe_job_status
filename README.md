@@ -49,11 +49,9 @@ The script expects Python3 with the following libraries
 
 The scripts expects a file, called `token`, in the same directory as the script itself.  The script was developed using a token with full administrative access.  Using a more limited token is a future effort.
 
-Sample script execution for Job # 1730:
+Sample script execution for Job # 1730 and output results to the console:
 
 $ python3 job_status.py 1730 console
-
-Which will grab details for Job 1730 from the Puppet Environment specificed in the script and output results to the console
 
 Current version of script returns results similar to this:
 ~~~~
