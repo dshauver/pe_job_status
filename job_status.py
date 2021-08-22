@@ -89,18 +89,11 @@ else:
 results_dict["Job ID"] = job_data["name"]
 for k in ['created_timestamp','finished_timestamp','duration','node_count']:
   results_dict[k] = job_data[k]
+#Just grabbing "finished" nodes - this means succesful job run in most cases
 results_dict["nodes_finished"] = job_data["node_states"]["finished"]
 
-#results.append( #Add data to results array
-  #[
-    #job_data["node_count"], #Total number of nodes on which job is run
-    #job_data["node_states"]["finished"], #Total number of jobs completed successfully 
-    #job_data["node_count"] - job_data["node_states"]["finished"], #Total number of jobs not completed successfully,
-    #round(
-      #100 * (job_data["node_states"]["finished"] / job_data["node_count"]) #Percent of per-node jobs successfully completed
-    #)
-  #]
-#)
+#Calculate % success and add it to the results dictionary
+results_dict["percent_success"] = round(100 * (results_dict["nodes_finished"] / results_dict["node_count"]))
 
 #FIXME Report on # of nodes NOT connected at time of job launch
 
@@ -133,14 +126,14 @@ for i in node_data["items"]:
       start_delay.append(node_start_time - job_start_time) #Add delay between job and node start time to array
 
 #Add percentiles for difference between overall job start time and node job start time to results
-results_dict["start_percentile"] = {}
+results_dict["start_delay_percentile"] = {}
 for i in [90,50,10] :
-  results_dict["start_percentile"][i] = numpy.percentile(start_delay, i) 
+  results_dict["start_delay_percentile"][i] = numpy.percentile(start_delay, i) 
 
 #Add precentile scores for per-node job duration to results.  
-results_dict["job_duration"] = {}
+results_dict["job_duration_percentile"] = {}
 for i in [90,50,10] :
-  results_dict["job_duration"][i] = numpy.percentile(job_duration, i) 
+  results_dict["job_duration_percentile"][i] = numpy.percentile(job_duration, i) 
 
 #Add per-node job data to results
 results_dict["nodes"] = {}

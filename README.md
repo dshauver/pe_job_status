@@ -63,12 +63,13 @@ Current version of script returns results similar to this:
   "duration": 247.913,
   "node_count": 13,
   "nodes_finished": 11,
-  "start_percentile": {
+  "percent_success": 85,
+  "start_delay_percentile": {
     "90": 86.0,
     "50": 0.0,
     "10": 0.0
   },
-  "job_duration": {
+  "job_duration_percentile": {
     "90": 209.493,
     "50": 118.065,
     "10": 65.061
