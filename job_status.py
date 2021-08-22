@@ -13,12 +13,10 @@ import urllib3
 import urllib.parse
 import numpy
 import json
-import csv
 
 #For enhancements to output to files in various formats.
-#import pathlib
-#import socket
 #import tabulate
+#import csv
 
 
 #Set up some defaults.  Using ALL CAPS for variables

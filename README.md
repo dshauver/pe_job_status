@@ -42,17 +42,18 @@ The script expects Python3 with the following libraries
 - urllib3
 - urllib.parse
 - numpy
-- tabulate
+- json
 - logging (If debugging is necessary)
-- pathlib (Future enhacements)
-- socket (Future Enhancements)
-- json (Future Enhancements)
+- tabulate (future enhancements)
+- csv (Future Enhancements)
 
-It is written to expect a file, called `token`, in the same directory as the script itself.  The script was developed with token with full administrative access.  Using a more limited token is a future effort.
+The scripts expects a file, called `token`, in the same directory as the script itself.  The script was developed using a token with full administrative access.  Using a more limited token is a future effort.
 
 Sample script execution for Job # 1730:
 
-$ python3 job_status.py 1730
+$ python3 job_status.py 1730 console
+
+Which will grab details for Job 1730 from the Puppet Environment specificed in the script and output results to the console
 
 Current version of script returns results similar to this:
 ~~~~
