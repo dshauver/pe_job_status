@@ -223,6 +223,4 @@ for i in node_data["items"]: #Iterate through nodes
     ]
   )
 
-#FIXME Add options to output to csv, JSON format files
-#FIXME This should be an IF loop, defaulting to console, with console|csv|JSON|all as cli options
 print (tabulate.tabulate(results, tablefmt="grid")) #Print results to console as grid format table
